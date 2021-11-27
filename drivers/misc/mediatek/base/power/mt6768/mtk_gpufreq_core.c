@@ -126,7 +126,9 @@ static unsigned int g_ptpod_opp_idx_table_segment[] = {
 	0, 2, 4, 6,
 	8, 10, 12, 14,
 	16, 18, 20, 23,
-	25, 27, 29, 31
+	25, 27, 29, 31,
+	32, 33, 34, 35,
+	36, 37, 38, 39
 };
 
 static struct g_opp_table_info g_opp_table_segment[] = {
@@ -162,6 +164,14 @@ GPUOP(SEG_GPU_DVFS_FREQ28, SEG_GPU_DVFS_VOLT28, SEG_GPU_DVFS_VSRAM11),
 GPUOP(SEG_GPU_DVFS_FREQ29, SEG_GPU_DVFS_VOLT29, SEG_GPU_DVFS_VSRAM11),
 GPUOP(SEG_GPU_DVFS_FREQ30, SEG_GPU_DVFS_VOLT30, SEG_GPU_DVFS_VSRAM11),
 GPUOP(SEG_GPU_DVFS_FREQ31, SEG_GPU_DVFS_VOLT31, SEG_GPU_DVFS_VSRAM11),
+GPUOP(SEG_GPU_DVFS_FREQ32, SEG_GPU_DVFS_VOLT32, SEG_GPU_DVFS_VSRAM11),
+GPUOP(SEG_GPU_DVFS_FREQ33, SEG_GPU_DVFS_VOLT33, SEG_GPU_DVFS_VSRAM11),
+GPUOP(SEG_GPU_DVFS_FREQ34, SEG_GPU_DVFS_VOLT34, SEG_GPU_DVFS_VSRAM11),
+GPUOP(SEG_GPU_DVFS_FREQ35, SEG_GPU_DVFS_VOLT35, SEG_GPU_DVFS_VSRAM11),
+GPUOP(SEG_GPU_DVFS_FREQ36, SEG_GPU_DVFS_VOLT36, SEG_GPU_DVFS_VSRAM12),
+GPUOP(SEG_GPU_DVFS_FREQ37, SEG_GPU_DVFS_VOLT37, SEG_GPU_DVFS_VSRAM12),
+GPUOP(SEG_GPU_DVFS_FREQ38, SEG_GPU_DVFS_VOLT38, SEG_GPU_DVFS_VSRAM12),
+GPUOP(SEG_GPU_DVFS_FREQ39, SEG_GPU_DVFS_VOLT39, SEG_GPU_DVFS_VSRAM12),
 };
 
 static const struct of_device_id g_gpufreq_of_match[] = {
@@ -773,6 +783,12 @@ unsigned int mt_gpufreq_get_min_power(void)
 {
 	return (!g_power_table) ? 0
 	: g_power_table[g_segment_min_opp_idx].gpufreq_power;
+}
+
+/* API : get immediate gpu temperature */
+int mt_gpufreq_get_immed_gpu_temp(void)
+{
+	return get_immediate_gpu_wrap();
 }
 
 /* API : get static leakage power */
@@ -1590,7 +1606,7 @@ void __mt_gpufreq_update_aging(bool apply_aging_setting)
 				g_opp_table[i].gpufreq_volt -= 1875;
 			else if (i >= 10 && i <= (aging_margin_idx - 1))
 				g_opp_table[i].gpufreq_volt -= 1250;
-			else if (i >= aging_margin_idx && i <= 31)
+			else if (i >= aging_margin_idx && i <= 39)
 				g_opp_table[i].gpufreq_volt -= 625;
 
 	g_opp_table[i].gpufreq_vsram =
@@ -1607,7 +1623,7 @@ void __mt_gpufreq_update_aging(bool apply_aging_setting)
 				g_opp_table[i].gpufreq_volt += 1875;
 			else if (i >= 10 && i <= (aging_margin_idx - 1))
 				g_opp_table[i].gpufreq_volt += 1250;
-			else if (i >= aging_margin_idx && i <= 31)
+			else if (i >= aging_margin_idx && i <= 39)
 				g_opp_table[i].gpufreq_volt += 625;
 
 	g_opp_table[i].gpufreq_vsram =
@@ -2573,7 +2589,9 @@ static void __mt_gpufreq_setup_opp_table(struct g_opp_table_info *freqs, int num
 	}
 
 	/* setup segment max/min opp_idx */
-		g_segment_max_opp_idx = 0;
+	g_segment_max_opp_idx = 0;
+	g_segment_min_opp_idx = 39;
+
 
 	g_max_opp_idx_num = num;
 	g_max_limited_idx = g_segment_max_opp_idx;
