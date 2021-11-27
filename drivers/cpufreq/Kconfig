@@ -110,6 +110,41 @@ config CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
 	  Use the 'schedutil' CPUFreq governor by default. If unsure,
 	  have a look at the help section of that governor. The fallback
 	  governor will be 'performance'.
+	    
+config CPU_FREQ_DEFAULT_GOV_BLU_SCHEDUTIL
+	bool "blu_schedutil"
+	select CPU_FREQ_GOV_BLU_SCHEDUTIL
+	select CPU_FREQ_GOV_PERFORMANCE
+	help
+	  Use the 'blu_schedutil' CPUFreq governor by default. If unsure,
+	  have a look at the help section of that governor. The fallback
+	  governor will be 'performance'.
+	  
+config CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND
+	bool "intellidemand"
+	select CPU_FREQ_GOV_INTELLIDEMAND
+	help
+	  Use the CPUFreq governor 'intellidemand' as default. This is
+	  based on Ondemand with browsing detection based on GPU loading
+	  
+
+config CPU_FREQ_DEFAULT_GOV_SCARY
+    bool "scary"
+    select CPU_FREQ_GOV_SCARY
+    select CPU_FREQ_GOV_SCARY
+    help
+        Use the CPUFreq governor 'scary' as default.
+        
+config CPU_FREQ_DEFAULT_GOV_LAGFREE
+        bool "lagfree"
+        select CPU_FREQ_GOV_LAGFREE
+        help
+          Use the CPUFreq governor 'lagfree' as default. This allows
+          you to get a full dynamic frequency capable system by simply
+          loading your cpufreq low-level hardware driver.
+          Be aware that not all cpufreq drivers support the lagfree
+          governor. If unsure have a look at the help section of the
+          driver. Fallback governor will be the performance governor.
 
 endchoice
 
