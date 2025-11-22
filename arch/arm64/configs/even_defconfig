@@ -4,13 +4,13 @@
 #
 
 #
-# Compiler: Neutron clang version 19.0.0git (https://github.com/llvm/llvm-project.git fd3eaf76ba3392a4406247d996e757ef49f7a8b2)
+# Compiler: Neutron clang version 21.0.0git (https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/tags/android-16.0.0_r3/clang-r563880/ a4e4f64faade99126f1b812ce2baa64b975a6aba)
 #
 CONFIG_GCC_VERSION=0
 CONFIG_CC_IS_CLANG=y
 CONFIG_LD_IS_LLD=y
-CONFIG_CLANG_VERSION=190000
-CONFIG_LLD_VERSION=190000
+CONFIG_CLANG_VERSION=210000
+CONFIG_LLD_VERSION=210000
 CONFIG_CC_HAS_ASM_GOTO=y
 CONFIG_TOOLS_SUPPORT_RELR=y
 CONFIG_IRQ_WORK=y
@@ -23,7 +23,7 @@ CONFIG_THREAD_INFO_IN_TASK=y
 CONFIG_INIT_ENV_ARG_LIMIT=32
 # CONFIG_COMPILE_TEST is not set
 CONFIG_LOCALVERSION="-Saturn-Kernel"
-# CONFIG_LOCALVERSION_AUTO is not set
+CONFIG_LOCALVERSION_AUTO=y
 CONFIG_BUILD_SALT=""
 CONFIG_HAVE_KERNEL_GZIP=y
 CONFIG_HAVE_KERNEL_LZ4=y
